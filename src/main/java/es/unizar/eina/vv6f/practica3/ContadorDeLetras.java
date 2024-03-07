@@ -29,7 +29,7 @@ public class ContadorDeLetras {
      *            fichero de texto cuyo contenido será analizado.
      */
     public ContadorDeLetras(File fichero) {
-        // TODO
+        this.fichero = fichero;
     }
 
     /**
