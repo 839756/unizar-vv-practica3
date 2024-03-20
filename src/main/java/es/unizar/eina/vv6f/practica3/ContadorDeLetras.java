@@ -1,6 +1,7 @@
 package es.unizar.eina.vv6f.practica3;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 /**
@@ -20,7 +21,7 @@ import java.io.FileNotFoundException;
  */
 public class ContadorDeLetras {
     private File fichero;
-    private int[] frecuencias = null;
+    private int[] frecuencias;
 
     /**
      * Construye un ContadorDeLetras para frecuencias la frecuencia en las que aparecen las letras
@@ -30,6 +31,7 @@ public class ContadorDeLetras {
      */
     public ContadorDeLetras(File fichero) {
         this.fichero = fichero;
+        this.frecuencias = null;
     }
 
     /**
@@ -47,9 +49,18 @@ public class ContadorDeLetras {
      *             puede abrirse.
      */
     public int[] frecuencias() throws FileNotFoundException {
-        if (frecuencias == null) {
-            // TODO
+        
+        if (!this.fichero.exists() || !this.fichero.canRead()) {
+            throw new FileNotFoundException();
+        } else {
+            FileInputStream fis=new FileInputStream(fichero);
+
+            if (this.frecuencias == null) {
+                this.frecuencias = new int[27];
+            }
+            return this.frecuencias;
         }
-        return frecuencias;
+
+       
     }
 }
