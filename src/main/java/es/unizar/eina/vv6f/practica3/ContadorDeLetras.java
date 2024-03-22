@@ -1,8 +1,11 @@
 package es.unizar.eina.vv6f.practica3;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.Normalizer;
 
 /**
  * Clase para el análisis de la frecuencia de aparición de letras del alfabeto español en un
@@ -51,12 +54,61 @@ public class ContadorDeLetras {
     public int[] frecuencias() throws FileNotFoundException {
         
         if (!this.fichero.exists() || !this.fichero.canRead()) {
-            throw new FileNotFoundException();
-        } else {
-            FileInputStream fis=new FileInputStream(fichero);
 
+            throw new FileNotFoundException();
+
+        } else {
+            
             if (this.frecuencias == null) {
                 this.frecuencias = new int[27];
+
+                try {
+                    // Se crea un FileReader para leer el archivo
+                    FileReader fileReader = new FileReader(fichero);
+
+                    // Se crea un BufferedReader para leer líneas de texto
+                    BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+                    // Se lee el fichero caracter por caracter
+                    int caracter;
+                    while ((caracter = bufferedReader.read()) != -1) {
+                        
+                        char c = Character.toLowerCase((char) caracter);
+
+                        if ( c == 'ñ' ) { 
+
+                            this.frecuencias[26]++;
+
+                        } else if ( c == 'º' ){
+
+                            this.frecuencias[14]++;
+
+                        } else if ( c == 'ª' ){
+
+                            this.frecuencias[0]++;
+
+                        } else {
+
+                            c = Normalizer.normalize(Character.toString(c), Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "").charAt(0);
+
+                            if ( c >= 'a' && c <= 'z'){
+
+                                this.frecuencias[c - 'a'] ++;
+
+                            }  
+                            
+                        }
+
+                    }
+
+                    // Se cierra el BufferedReader
+                    bufferedReader.close();
+
+                } catch (IOException e) {
+                    System.err.println("Error al leer el fichero: " + e.getMessage());
+                }
+
+
             }
             return this.frecuencias;
         }
