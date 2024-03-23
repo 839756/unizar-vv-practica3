@@ -72,10 +72,11 @@ public class ContadorDeLetras {
                     // Se lee el fichero caracter por caracter
                     int caracter;
                     while ((caracter = bufferedReader.read()) != -1) {
-                        
-                        char c = Character.toLowerCase((char) caracter);
 
-                        if ( c == 'ñ' ) { 
+                        // Se pasa a minusculas
+                        char c = Character.toLowerCase((char) caracter);    
+
+                        if ( c == 'ñ' ) { // Se comprueban los casos de ñ, º y ª
 
                             this.frecuencias[26]++;
 
@@ -87,7 +88,7 @@ public class ContadorDeLetras {
 
                             this.frecuencias[0]++;
 
-                        } else {
+                        } else {    // Se comprueban los demás casos eliminando diacríticos
 
                             c = Normalizer.normalize(Character.toString(c), Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "").charAt(0);
 

@@ -16,7 +16,6 @@ class ContadorDeLetrasTest {
         File fichero = new File("src/test/res/prueba.txt");
         ContadorDeLetras contador = new ContadorDeLetras(fichero);
 
-        //Se crea un vector de ceros de la misma longitud para comprobar
         int[] arrayEsperado = new int[27];
 
         assertArrayEquals(arrayEsperado, contador.frecuencias());
@@ -30,7 +29,6 @@ class ContadorDeLetrasTest {
         File fichero = new File("src/test/res/prueba.txt");
         ContadorDeLetras contador = new ContadorDeLetras(fichero);
 
-        //Se crea un vector de ceros de la misma longitud para comprobar
         int[] arrayEsperado1 = new int[27];
 
         int[] arrayEsperado2 = contador.frecuencias();
