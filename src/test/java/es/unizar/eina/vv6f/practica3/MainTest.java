@@ -55,53 +55,22 @@ class MainTest {
 
     @Test
     void testQuijote() throws IOException {
-
-        // Se redirige la entrada estándar al fichero deseado
-        String inputPath = "src/main/res/quijote.txt";
-        byte[] inputBytesPath = inputPath.getBytes();
-        ByteArrayInputStream inputStreamPath = new ByteArrayInputStream(inputBytesPath);
-        System.setIn(inputStreamPath);
-
-        Main.main(null);
-
-        //Se comparan los bytes de los ficheros para ver si son identicos
-        Path path_fichero_resultado = Paths.get("src/test/java/es/unizar/eina/vv6f/practica3/salida_temporal.tmp");
-        Path path_fichero_esperado = Paths.get("src/test/res/resultados_esperados/salida-quijote.txt");
-
-        byte[] fichero_resultado_bytes = Files.readAllBytes(path_fichero_resultado);
-        byte[] fichero_esperado_bytes = Files.readAllBytes(path_fichero_esperado);
-
-        assertArrayEquals(fichero_esperado_bytes, fichero_resultado_bytes);
+        testFichero("quijote");
     }
-
 
     @Test
     void testHamlet() throws IOException {
-
-        // Se redirige la entrada estándar al fichero deseado
-        String inputPath = "src/main/res/hamlet.txt";
-        byte[] inputBytesPath = inputPath.getBytes();
-        ByteArrayInputStream inputStreamPath = new ByteArrayInputStream(inputBytesPath);
-        System.setIn(inputStreamPath);
-
-        Main.main(null);
-
-        //Se comparan los bytes de los ficheros para ver si son identicos
-        Path path_fichero_resultado = Paths.get("src/test/java/es/unizar/eina/vv6f/practica3/salida_temporal.tmp");
-        Path path_fichero_esperado = Paths.get("src/test/res/resultados_esperados/salida-hamlet.txt");
-
-        byte[] fichero_resultado_bytes = Files.readAllBytes(path_fichero_resultado);
-        byte[] fichero_esperado_bytes = Files.readAllBytes(path_fichero_esperado);
-
-        assertArrayEquals(fichero_esperado_bytes, fichero_resultado_bytes);
+        testFichero("hamlet");
     }
 
 
     @Test
     void testRegenta() throws IOException {
-
+        testFichero("hamlet");
+    }
+    private static void testFichero(String nombreFichero) throws IOException {
         // Se redirige la entrada estándar al fichero deseado
-        String inputPath = "src/main/res/regenta.txt";
+        String inputPath = "src/main/res/" + nombreFichero + ".txt";
         byte[] inputBytesPath = inputPath.getBytes();
         ByteArrayInputStream inputStreamPath = new ByteArrayInputStream(inputBytesPath);
         System.setIn(inputStreamPath);
@@ -110,7 +79,7 @@ class MainTest {
 
         //Se comparan los bytes de los ficheros para ver si son identicos
         Path path_fichero_resultado = Paths.get("src/test/java/es/unizar/eina/vv6f/practica3/salida_temporal.tmp");
-        Path path_fichero_esperado = Paths.get("src/test/res/resultados_esperados/salida-regenta.txt");
+        Path path_fichero_esperado = Paths.get("src/test/res/resultados_esperados/salida-" + nombreFichero + ".txt");
 
         byte[] fichero_resultado_bytes = Files.readAllBytes(path_fichero_resultado);
         byte[] fichero_esperado_bytes = Files.readAllBytes(path_fichero_esperado);
